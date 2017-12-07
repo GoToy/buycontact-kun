@@ -28,20 +28,7 @@ class UsersController < ApplicationController
     body = request.body.read
     events = client.parse_events_from(body)
     events.each { |event|
-     user = User.find_or_create_by(line_id: event.source['userId'])
- 
-
-
-    message = {
-  type: 'text',
-  text: 'コンタクトを着用しましたか？'
-}
-
-response = client.push_message("<to_user.line_id>", message)
-p response
-
-
-
+     user = User.find_or_create_by(line_id: event['source']['userId'])
       case event
       when Line::Bot::Event::Message
         case event.type
