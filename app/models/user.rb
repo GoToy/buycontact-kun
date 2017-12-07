@@ -27,6 +27,7 @@ require 'line/bot'
             "label": "いいえ",
             "text": "no"
           }
+       ]
      }
 }
 client = User.client
