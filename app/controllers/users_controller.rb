@@ -28,6 +28,20 @@ class UsersController < ApplicationController
     body = request.body.read
     events = client.parse_events_from(body)
     events.each { |event|
+     user = User.find_or_create_by(line_id: event.source['userId'])
+ 
+
+
+    message = {
+  type: 'text',
+  text: 'コンタクトを着用しましたか？'
+}
+
+response = client.push_message("<to_user.line_id>", message)
+p response
+
+
+
       case event
       when Line::Bot::Event::Message
         case event.type
@@ -37,10 +51,7 @@ class UsersController < ApplicationController
             text: event.message['text']
           }
           client.reply_message(event['replyToken'], message)
-        when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
-          response = client.get_message_content(event.message['id'])
-          tf = Tempfile.open("content")
-          tf.write(response.body)
+        
         end
       end
     }

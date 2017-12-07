@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109114647) do
+ActiveRecord::Schema.define(version: 20171130113947) do
 
   create_table "users", force: :cascade do |t|
     t.integer  "remain"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "line_id"
   end
 
 end

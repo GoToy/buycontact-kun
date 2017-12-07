@@ -8,6 +8,34 @@ require 'line/bot'
     }
   end
 
+  def morning_contact
+    message = {
+
+  "type": "template",
+  "altText": "this is a confirm template",
+  "template": {
+      "type": "confirm",
+      "text": "コンタクトをつけましたか?",
+      "actions": [
+          {
+            "type": "message",
+            "label": "はい",
+            "text": "はい"
+          },
+          {
+            "type": "message",
+            "label": "いいえ",
+            "text": "no"
+          }
+     }
+}
+client = User.client
+response = client.push_message(self.line_id, message)
+p response
+
+  end
+
+
   def instance_method
     p "this is instance_method"
   end
