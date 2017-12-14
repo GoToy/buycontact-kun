@@ -35,11 +35,11 @@ class UsersController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {}
 
-          parsed_message = event.message['text'].gsub(/\D/, '')
+          parsed_message = event.message['text'].match(/[0-9]+|\-[0-9]+/).to_s
 
           if parsed_message.present?
-            before_addition_num = user.remain
-            user.update(remain: user.remain + parsed_message.to_i)
+            before_addition_num = user.remain || 0
+            user.update(remain: before_addition_num + parsed_message.to_i)
 
             message = {
               type: 'text',
