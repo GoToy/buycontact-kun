@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
+
   # GET /users
   # GET /users.json
   def index
@@ -33,12 +33,26 @@ class UsersController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          message = {
-            type: 'text',
-            text: event.message['text']
-          }
+          message = {}
+
+          parsed_message = event.message['text'].gsub(/\D/, '')
+
+          if parsed_message.present?
+            before_addition_num = user.remain
+            user.update(remain: user.remain + parsed_message.to_i)
+
+            message = {
+              type: 'text',
+              text: "残数#{before_addition_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました"
+            }
+          else
+            message = {
+              type: 'text',
+              text: event.message['text']
+            }
+          end
+
           client.reply_message(event['replyToken'], message)
-        
         end
       end
     }
