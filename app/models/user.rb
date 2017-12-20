@@ -15,17 +15,17 @@ require 'line/bot'
   "altText": "this is a confirm template",
   "template": {
       "type": "confirm",
-      "text": "コンタクトをつけましたか?",
+      "text": "残数#{user.remain}個です。\nコンタクトをつけましたか?",
       "actions": [
           {
-            "type": "message",
+            "type": "text",
             "label": "はい",
-            "text": "はい"
+            "message": "はい"
           },
           {
-            "type": "message",
+            "type": "text",
             "label": "いいえ",
-            "text": "no"
+            "message": "いいえ"
           }
        ]
      }
