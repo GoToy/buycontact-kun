@@ -18,14 +18,14 @@ require 'line/bot'
       "text": "残数#{user.remain}個です。\nコンタクトをつけましたか?",
       "actions": [
           {
-            "type": "text",
+            "type": "uri",
             "label": "はい",
-            "message": "はい"
+            "uri": "https://buycontact-kun.herokuapp.com/users/#{user.id}/update_contacts"
           },
           {
-            "type": "text",
+            "type": "uri",
             "label": "いいえ",
-            "message": "いいえ"
+            "uri": "https://buycontact-kun.herokuapp.com/users/#{user.id}/show_contacts"
           }
        ]
      }
