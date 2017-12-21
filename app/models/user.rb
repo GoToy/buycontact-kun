@@ -15,17 +15,17 @@ require 'line/bot'
   "altText": "this is a confirm template",
   "template": {
       "type": "confirm",
-      "text": "残数#{user.remain}個です。\nコンタクトをつけましたか?",
+      "text": "残数#{self.remain}個です。\nコンタクトをつけましたか?",
       "actions": [
           {
             "type": "uri",
             "label": "はい",
-            "uri": "https://buycontact-kun.herokuapp.com/users/#{user.id}/update_contacts"
+            "uri": "https://buycontact-kun.herokuapp.com/users/#{self.id}/update_contacts"
           },
           {
             "type": "uri",
             "label": "いいえ",
-            "uri": "https://buycontact-kun.herokuapp.com/users/#{user.id}/show_contacts"
+            "uri": "https://buycontact-kun.herokuapp.com/users/#{self.id}/show_contacts"
           }
        ]
      }
