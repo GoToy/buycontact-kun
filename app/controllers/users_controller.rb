@@ -39,7 +39,7 @@ class UsersController < ApplicationController
          before_update_num = user.remain || 0
          user.update(remain: before_update_num + parsed_data['num'][0].to_i)
          message = {
-            type: 'text'
+            type: 'text',
             text: "残数#{before_update_num}個に対し、#{parsed_data['num'][0].to_i}個足して、#{user.reload.remain}個になりました"
            }
              client.reply_message(event['replyToken'],message)
