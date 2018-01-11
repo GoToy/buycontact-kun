@@ -20,13 +20,13 @@ require 'line/bot'
           {
             "type": "postback",
             "label": "はい",
-            "data": "action=changecontactcount&count=1"
+            "data": "action=change_contact_num&num=-1",
             "text": "はい"
           },
           {
             "type": "postback",
             "label": "いいえ",
-            "data": "action=changecontactcount&count=2"
+            "data": "action=change_contact_num&num=0",
             "text": "いいえ"
           }
        ]
