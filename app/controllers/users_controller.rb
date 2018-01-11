@@ -26,12 +26,24 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-     client = User.client
+    client = User.client
     body = request.body.read
     events = client.parse_events_from(body)
     events.each { |event|
      user = User.find_or_create_by(line_id: event['source']['userId'])
       case event
+      when Line::Bot::Event::Postback
+        parsed_data = CGI::parse(event.postback.data)
+        case parsed_data['action'][0]
+        when /change_contact_num/
+          before_update_num = user.remain || 0
+          user.update(remain: before_update_num + parsed_data['num'][0].to_i)
+          message = {
+            type: 'text',
+            text: "残数#{before_update_num}個に対し、#{parsed_data['num'][0].to_i}個足して、#{user.reload.remain}個になりました"
+          }
+          client.reply_message(event['replyToken'], message)
+        end
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
@@ -66,7 +78,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
- 
+
   end
 
 
