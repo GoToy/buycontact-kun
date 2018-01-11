@@ -35,9 +35,9 @@ class UsersController < ApplicationController
       when Line::Bot::Event::Postback
         parsed_data = CGI::parse(event.postback.data)
         case parsed_data['action'][0]
-        when 'change_contact_num'
+        when /change_contact_num/
           before_update_num = user.remain || 0
-          user.update(remain: before_update_num + parsed_data['num'].to_i)
+          user.update(remain: before_update_num + parsed_data['num'][0].to_i)
           message = {
             type: 'text',
             text: "残数#{before_addition_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました"
