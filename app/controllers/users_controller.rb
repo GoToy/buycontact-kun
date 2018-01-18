@@ -55,7 +55,7 @@ class UsersController < ApplicationController
           if parsed_message.present?
             before_update_num = user.remain || 0
             user.update(remain: before_update_num + parsed_message.to_i)
-          if user.remain == 7
+          if user.reload.remain == 7
             message = {
               type: 'text',
               text: "残数#{before_update_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました\nhttps://www.lensmode.com/auth/login/redirectUrl/%252Fmypage%252Findex%252F/"
