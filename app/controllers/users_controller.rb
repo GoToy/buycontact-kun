@@ -31,7 +31,11 @@ class UsersController < ApplicationController
     events = client.parse_events_from(body)
     events.each { |event|
      user = User.find_or_create_by(line_id: event['source']['userId'])
-      case event
+     p "-----------------------------------------------------"
+     p event 
+     p "-----------------------------------------------------"
+     case event
+      
       when Line::Bot::Event::Postback
        parsed_data = CGI::parse(event.postback.data)
        case parsed_data['action'][0]
