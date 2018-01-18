@@ -50,11 +50,6 @@ class UsersController < ApplicationController
               text: "残数#{before_update_num}個に対し、#{parsed_data['num'][0].to_i}個足して、#{user.reload.remain}個になりました"
            } 
           end
-if 
-         message = {
-            type: 'text',
-            text: "残数#{before_update_num}個に対し、#{parsed_data['num'][0].to_i}個足して、#{user.reload.remain}個になりました"
-           }
              client.reply_message(event['replyToken'],message)
        end 
       when Line::Bot::Event::Message
