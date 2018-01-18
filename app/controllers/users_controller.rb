@@ -31,9 +31,6 @@ class UsersController < ApplicationController
     events = client.parse_events_from(body)
     events.each { |event|
      user = User.find_or_create_by(line_id: event['source']['userId'])
-     p "-----------------------------------------------------"
-     p event 
-     p "-----------------------------------------------------"
      case event
       
       when Line::Bot::Event::Postback
@@ -58,16 +55,22 @@ class UsersController < ApplicationController
           if parsed_message.present?
             before_update_num = user.remain || 0
             user.update(remain: before_update_num + parsed_message.to_i)
-
+          if user.remain == 7
+            message = {
+              type: 'text',
+              text: "残数#{before_update_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました\nhttps://www.lensmode.com/auth/login/redirectUrl/%252Fmypage%252Findex%252F/"
+            }
+          else 
             message = {
               type: 'text',
               text: "残数#{before_update_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました"
-            }
+           } 
+          end
           else
             message = {
               type: 'text',
               text: event.message['text']
-            }
+           }
           end
 
           client.reply_message(event['replyToken'], message)
