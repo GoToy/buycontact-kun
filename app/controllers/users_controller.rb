@@ -37,7 +37,7 @@ class UsersController < ApplicationController
      case event
       
       when Line::Bot::Event::Postback
-       parsed_data = CGI::parse(event.postback.data)
+       parsed_data = CGI::parse(event["postback"]["data"])
        case parsed_data['action'][0]
        when /change_contact_num/
          before_update_num = user.remain || 0
