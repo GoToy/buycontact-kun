@@ -39,10 +39,17 @@ class UsersController < ApplicationController
        when /change_contact_num/
          before_update_num = user.remain || 0
          user.update(remain: before_update_num + parsed_data['num'][0].to_i)
-         message = {
-            type: 'text',
-            text: "残数#{before_update_num}個に対し、#{parsed_data['num'][0].to_i}個足して、#{user.reload.remain}個になりました"
-           }
+          if user.reload.remain == 7
+            message = {
+              type: 'text',
+              text: "残数#{before_update_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました\nhttps://www.lensmode.com/auth/login/redirectUrl/%252Fmypage%252Findex%252F/"
+            }
+          else 
+            message = {
+              type: 'text',
+              text: "残数#{before_update_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました"
+           } 
+          end
              client.reply_message(event['replyToken'],message)
        end 
       when Line::Bot::Event::Message
