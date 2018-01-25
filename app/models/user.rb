@@ -20,7 +20,7 @@ require 'line/bot'
           {
             "type": "postback",
             "label": "はい",
-            "data": "action=change_contact_num&num=-1"
+            "data": "action=change_contact_num&num=1"
           },
           {
             "type": "postback",
