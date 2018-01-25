@@ -90,7 +90,7 @@ class UsersController < ApplicationController
           else
             message = {
               type: 'text',
-              text: event.message['text']
+              text: "申し訳ございません。そのようなコマンドは対応しておりません。\n対応しているコマンドは下記の通りです。\n数字"
            }
           end
 
