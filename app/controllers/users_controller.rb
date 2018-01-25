@@ -38,7 +38,7 @@ class UsersController < ApplicationController
        case parsed_data['action'][0]
        when /change_contact_num/
          before_update_num = user.remain || 0
-         user.update(remain: before_update_num + parsed_data['-']['num'][0].to_i)
+         user.update(remain: before_update_num - parsed_data['num'][0].to_i)
           if user.reload.remain == 8
             message = {
               type: 'text',
