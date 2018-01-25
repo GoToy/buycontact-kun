@@ -83,10 +83,10 @@ class UsersController < ApplicationController
             else 
               message = {
                 type: 'text',
-                text: "残数#{before_update_num}個に対し、#{parsed_message.to_i}個足して、#{user.reload.remain}個になりました"
+                text: "残数#{before_update_num}個に対し、#{parsed_message.to_i.abs}個引いて、#{user.reload.remain}個になりました"
              } 
             end           
-
+           end
           else
             message = {
               type: 'text',
