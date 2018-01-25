@@ -78,12 +78,12 @@ class UsersController < ApplicationController
             if user.reload.remain == 7
               message = {
                 type: 'text',
-                text: "残数#{before_update_num}個に対し、#{parsed_message.to_i.abs}個引いて、#{user.reload.remain}個になりました\nhttps://www.lensmode.com/auth/login/redirectUrl/%252Fmypage%252Findex%252F/"
+                text: "残数#{before_update_num}個に対し、#{parsed_message.abs.to_i}個引いて、#{user.reload.remain}個になりました\nhttps://www.lensmode.com/auth/login/redirectUrl/%252Fmypage%252Findex%252F/"
               }
             else 
               message = {
                 type: 'text',
-                text: "残数#{before_update_num}個に対し、#{parsed_message.to_i.abs}個引いて、#{user.reload.remain}個になりました"
+                text: "残数#{before_update_num}個に対し、#{parsed_message.abs.to_i}個引いて、#{user.reload.remain}個になりました"
              } 
             end           
            end
